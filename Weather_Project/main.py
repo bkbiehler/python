@@ -3,19 +3,26 @@ import urllib.request
 import json
 import os
 from dotenv import load_dotenv, dotenv_values
+
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
-LOCATION = "Kansas City, MO"
-UNIT_GROUP = "metric"
+
+
+# Function to prompt user for location
+def loc_prompt(location):
+    return input(location)
+
+print("Starting program.")
+l=loc_prompt("Insert Location: ")
+print(l)
+UNIT_GROUP = "us"
 CONTENT_TYPE = "json"
 
-from dotenv import load_dotenv, dotenv_values
-
 # Function to fetch timeline weather data
-def fetch_timeline_weather():
+def fetch_timeline_weather(l):
     # Construct the request URL
     base_url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
-    request_url = f"{base_url}{urllib.parse.quote_plus(LOCATION)}?key={API_KEY}&unitGroup={UNIT_GROUP}&contentType={CONTENT_TYPE}"
+    request_url = f"{base_url}{urllib.parse.quote_plus(l)}?key={API_KEY}&unitGroup={UNIT_GROUP}&contentType={CONTENT_TYPE}"
 
     try:
         # Open the URL and read the response
@@ -34,4 +41,4 @@ def fetch_timeline_weather():
     except Exception as e:
         print(f"Error fetching weather data: {e}")
 
-fetch_timeline_weather()
+fetch_timeline_weather(l)
