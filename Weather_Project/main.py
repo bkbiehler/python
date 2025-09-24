@@ -2,10 +2,15 @@ import urllib.parse
 import urllib.request
 import json
 import os
+import sys
 from dotenv import load_dotenv, dotenv_values
 
 load_dotenv()
+# Load API key from .env file
 API_KEY = os.getenv("API_KEY")
+if not API_KEY:
+    print("Error: API_KEY environment variable is not set.")
+    sys.exit(1)
 
 
 # Function to prompt user for location
